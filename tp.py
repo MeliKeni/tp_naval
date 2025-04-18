@@ -23,7 +23,7 @@ def asignarBarcos(tablero:list[list[str]], cantidadBarcos:int) -> list[list[int]
         tablero[posicionx][posiciony] = "barco"
     return posicionesBarcos
 
-def sistema_disparos(tablero: list[list[str]], posiciones_barcos: list[list[int]]) -> None:
+def sistema_disparos(tablero: list[list[str]], posiciones_barcos: list[list[int]]) -> None: #aca me gustria poner 2 intes, para que devuleva aciertos y fallos pero no se como hacerlo
     cantidadDisparos:int =int(input("Cuantos intentos quiere?"))
     disparosAcertados:int =0
     disparosFallados:int =0
