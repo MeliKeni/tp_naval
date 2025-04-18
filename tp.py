@@ -17,9 +17,8 @@ def asignarBarcos(tablero:list[list[str]], cantidadBarcos:int) -> list[list[int]
     
     for i in range(cantidadBarcos):
         barco_i: list[list[int]] = []
-        posicionesBarcos.append(barco_i)
 
-    for i in range(cantidadBarcos):
+    while len(posicionesBarcos) < cantidadBarcos:
         tamanoBarco:int = int(input("Tamaño del barco: "))
         if tamanoBarco > 3:
             print("El barco es de hasta 3 casillas, automaticamente se hara su barco de 3 casillas")
@@ -36,6 +35,7 @@ def asignarBarcos(tablero:list[list[str]], cantidadBarcos:int) -> list[list[int]
            barco_i.append([posicionx, posiciony + i])
            tablero[posicionx][posiciony + i] = "barco"
         print("Barco colocado")
+        posicionesBarcos.append(barco_i) 
     return posicionesBarcos
 
 def sistema_disparos(tablero: list[list[str]], posiciones_barcos: list[list[list[int]]]) -> None: #aca me gustria poner 2 intes, para que devuleva aciertos y fallos pero no se como hacerlo
@@ -75,8 +75,7 @@ cantidadBarcos = int(input("Cuantos barcos?"))
 
 posicionesBarcos = asignarBarcos(tablero, cantidadBarcos)
 
-print(posicionesBarcos) #me indica donde estan los barcos
-#juego
+
 disparosAcertados, disparosFallados = sistema_disparos(tablero, posicionesBarcos)
 
 #finalizar el juego
