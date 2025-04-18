@@ -28,8 +28,8 @@ disparosAcertados:int =0
 disparosFallados:int =0
 
 for i in range(cantidadDisparos):
-    input:str = input("Decir posicion barco")
-    intentoDisparo:list[int] = [input.split(",")[0], input.split(",")[1]]
+    entrada:str = input("Decir posicion barco")
+    intentoDisparo:list[int] = [entrada.split(",")[0], entrada.split(",")[1]]
 
     if intentoDisparo in posicionesBarcos:
         disparosAcertados += 1
@@ -44,5 +44,7 @@ for i in range(n):
 
 print(disparosAcertados)
 print(disparosFallados)
+
+
 
 
