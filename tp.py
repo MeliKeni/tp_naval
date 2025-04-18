@@ -13,45 +13,58 @@ def imprimirTablero(tablero:list[list[str]]) -> None:
         print(fila)
 
 def asignarBarcos(tablero:list[list[str]], cantidadBarcos:int) -> list[list[int]]:
-    posicionesBarcos: list[list[int]] = []
+    posicionesBarcos: list[list[list[int]]] = []
     
-    while 0 < cantidadBarcos:
+    for i in range(cantidadBarcos):
+        barco_i: list[list[int]] = []
+        posicionesBarcos.append(barco_i)
+
+    for i in range(cantidadBarcos):
         tamanoBarco:int = int(input("Tamaño del barco: "))
         if tamanoBarco > 3:
-            print("El barco es de hasta 3 casillas")
-            continue
-
+            print("El barco es de hasta 3 casillas, automaticamente se hara su barco de 3 casillas")
+            tamanoBarco=3
         posicionx = random.randint(0, n-1)
-        posicionxfinal= posicionx + tamanoBarco - 1
-        if posicionxfinal > n-1:
+        posiciony = random.randint(0, n-1)
+        posicionyfinal= posiciony + tamanoBarco - 1
+        if posicionyfinal > n-1:
             print("Hubo un error, repetir ese barco")
             continue
-        posiciony = random.randint(0, n-1)
         if [posicionx, posiciony] in posicionesBarcos:
             continue
         for i in range(tamanoBarco):
-           posicionesBarcos.append([posicionx + i, posiciony])
-           tablero[posicionx + i][posiciony] = "barco"
-        cantidadBarcos -= 1
+           barco_i.append([posicionx, posiciony + i])
+           tablero[posicionx][posiciony + i] = "barco"
         print("Barco colocado")
     return posicionesBarcos
 
-def sistema_disparos(tablero: list[list[str]], posiciones_barcos: list[list[int]]) -> None: #aca me gustria poner 2 intes, para que devuleva aciertos y fallos pero no se como hacerlo
+def sistema_disparos(tablero: list[list[str]], posiciones_barcos: list[list[list[int]]]) -> None: #aca me gustria poner 2 intes, para que devuleva aciertos y fallos pero no se como hacerlo
     cantidadDisparos:int =int(input("Cuantos intentos quiere?"))
     disparosAcertados:int =0
     disparosFallados:int =0
     for i in range(cantidadDisparos):
         entrada:str = input("Decir posicion barco")
         intentoDisparo:list[int] = [int(entrada.split(",")[0]), int(entrada.split(",")[1])]
-
-        if intentoDisparo in posicionesBarcos:
-            disparosAcertados += 1
-            posicionesBarcos.remove(intentoDisparo)
-            tablero[intentoDisparo[0]][intentoDisparo[1]] = "golpeado"
-            print("Disparo acertado")
-        else :
-            disparosFallados += 1
-            print("Disparo fallado")
+        
+        for i in range(len(posiciones_barcos)):
+            if intentoDisparo in posiciones_barcos[i]:
+                disparosAcertados += 1
+                tablero[intentoDisparo[0]][intentoDisparo[1]] = "golpeado"
+                print("Disparo acertado")
+            else :
+                disparosFallados += 1
+                print("Disparo fallado")
+    for barco_i in posiciones_barcos:
+        hundido:bool = True
+    for casilla in barco_i:
+        x, y = casilla
+        if tablero[x][y] != "golpeado":
+            hundido = False
+    if hundido:
+        print("Barco hundido")
+        for casilla in barco_i:
+            x, y = casilla
+            tablero[x][y] = "hundido"
     return disparosAcertados, disparosFallados
 
 #creacion y configuarcion del juego
