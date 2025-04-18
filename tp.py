@@ -14,13 +14,27 @@ def imprimirTablero(tablero:list[list[str]]) -> None:
 
 def asignarBarcos(tablero:list[list[str]], cantidadBarcos:int) -> list[list[int]]:
     posicionesBarcos: list[list[int]] = []
-    while len(posicionesBarcos) < cantidadBarcos:
+    
+    while 0 < cantidadBarcos:
+        tamanoBarco:int = int(input("Tamaño del barco: "))
+        if tamanoBarco > 3:
+            print("El barco es de hasta 3 casillas")
+            continue
+
         posicionx = random.randint(0, n-1)
+        posicionxfinal= posicionx + tamanoBarco - 1
+        if posicionxfinal > n-1:
+            print("Hubo un error, repetir ese barco")
+            continue
         posiciony = random.randint(0, n-1)
         if [posicionx, posiciony] in posicionesBarcos:
             continue
-        posicionesBarcos.append([posicionx, posiciony])
-        tablero[posicionx][posiciony] = "barco"
+        for i in range(tamanoBarco):
+           posicionesBarcos.append([posicionx + i, posiciony])
+           tablero[posicionx + i][posiciony] = "barco"
+        cantidadBarcos -= 1
+        print("Barco colocado")
+        
     return posicionesBarcos
 
 def sistema_disparos(tablero: list[list[str]], posiciones_barcos: list[list[int]]) -> None: #aca me gustria poner 2 intes, para que devuleva aciertos y fallos pero no se como hacerlo
@@ -53,8 +67,8 @@ disparosAcertados, disparosFallados = sistema_disparos(tablero, posicionesBarcos
 
 #finalizar el juego
 imprimirTablero(tablero)
-print(disparosAcertados)
-print(disparosFallados)
+print("la cantidad de disparos acertados fueron: ", + disparosAcertados)
+print("la cantidad de disparos fallados fueron: ", + disparosFallados)
 
 
 
