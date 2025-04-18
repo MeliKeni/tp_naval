@@ -1,4 +1,9 @@
 import random
+
+disparosAcertadosA:int =0
+disparosFalladosA:int =0
+disparosAcertadosB:int =0
+disparosFalladosB:int =0
 #delcaracion de funciones
 def crearTablero(n:int) -> list[list[str]]:
     tablero: list[list[str]] = []
@@ -15,8 +20,6 @@ def imprimirTablero(tablero:list[list[str]]) -> None:
 def asignarBarcos(tablero:list[list[str]], cantidadBarcos:int) -> list[list[int]]:
     posicionesBarcos: list[list[list[int]]] = []
     
-    
-
     while len(posicionesBarcos) < cantidadBarcos:
         barco_i: list[list[int]] = []
         tamanoBarco:int = int(input("Tamaño del barco: "))
@@ -29,7 +32,8 @@ def asignarBarcos(tablero:list[list[str]], cantidadBarcos:int) -> list[list[int]
         if posicionyfinal > n-1:
             print("Hubo un error, repetir ese barco")
             continue
-        if [posicionx, posiciony] in posicionesBarcos:
+        if [posicionx, posiciony] in posicionesBarcos or [posicionx, posicionyfinal] in posicionesBarcos:
+            print("Hubo un error, repetir ese barco")
             continue
         for i in range(tamanoBarco):
            barco_i.append([posicionx, posiciony + i])
@@ -43,15 +47,19 @@ def turno(tablero: list[list[str]], posiciones_barcos: list[list[list[int]]]) ->
     disparosFallados:int =0
     entrada:str = input("Decir posicion barco")
     intentoDisparo:list[int] = [int(entrada.split(",")[0]), int(entrada.split(",")[1])]
-        
+    acertado = False  
+    
     for i in range(len(posiciones_barcos)):
-            if intentoDisparo in posiciones_barcos[i]:
-                disparosAcertados += 1
-                tablero[intentoDisparo[0]][intentoDisparo[1]] = "golpeado"
-                print("Disparo acertado")
-            else :
-                disparosFallados += 1
-                print("Disparo fallado")
+        if intentoDisparo in posiciones_barcos[i]:
+            disparosAcertados += 1
+            tablero[intentoDisparo[0]][intentoDisparo[1]] = "golpeado"
+            print("Disparo acertado")
+            acertado = True  
+            break  
+
+    if not acertado: 
+        disparosFallados += 1
+        print("Disparo fallado")
     for barco_i in posiciones_barcos:
         hundido:bool = True
         for casilla in barco_i:
@@ -78,15 +86,16 @@ posicionesBarcosB = asignarBarcos(tableroB, cantidadBarcos)
 
 cantidadDisparos:int =int(input("Cuantos intentos quiere?"))
 
-disparosAcertadosA:int =0
-disparosFalladosA:int =0
-disparosAcertadosB:int =0
-disparosFalladosB:int =0
+
 for i in range(cantidadDisparos):
     print("Turno jugador 1")
-    disparosAcertadosA, disparosFalladosA = turno(tableroA, posicionesBarcosB)
+    aciertos, fallados = turno(tableroA, posicionesBarcosB)
+    disparosAcertadosA += aciertos
+    disparosFalladosA += fallados
     print("Turno jugador 2")
-    disparosAcertadosB, disparosFalladosB = turno(tableroB, posicionesBarcosA)
+    aciertos, fallados = turno(tableroB, posicionesBarcosA)
+    disparosAcertadosB += aciertos
+    disparosFalladosB += fallados
 
 
 #finalizar el juego
@@ -96,5 +105,5 @@ print("la cantidad de disparos acertados por el jugador 1 fueron: ",  disparosAc
 print("la cantidad de disparos fallados por el jugador 1  fueron: ",  disparosFalladosA)
 print("Tablero jugador 2")
 imprimirTablero(tableroB)
-print("la cantidad de disparos acertados por el jugador 1 fueron: ",  disparosAcertadosB)
-print("la cantidad de disparos fallados por el jugador 1  fueron: ",  disparosFalladosB)
+print("la cantidad de disparos acertados por el jugador 2 fueron: ",  disparosAcertadosB)
+print("la cantidad de disparos fallados por el jugador 2  fueron: ",  disparosFalladosB)
