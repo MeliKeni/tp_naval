@@ -14,7 +14,7 @@ def imprimirTablero(tablero:list[list[str]]) -> None:
 
 def asignarBarcos(tablero:list[list[str]], cantidadBarcos:int) -> list[list[int]]:
     posicionesBarcos: list[list[int]] = []
-    for i in range(cantidadBarcos):
+    while len(posicionesBarcos) < cantidadBarcos:
         posicionx = random.randint(0, n-1)
         posiciony = random.randint(0, n-1)
         if [posicionx, posiciony] in posicionesBarcos:
