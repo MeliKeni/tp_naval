@@ -34,7 +34,6 @@ def asignarBarcos(tablero:list[list[str]], cantidadBarcos:int) -> list[list[int]
            tablero[posicionx + i][posiciony] = "barco"
         cantidadBarcos -= 1
         print("Barco colocado")
-        
     return posicionesBarcos
 
 def sistema_disparos(tablero: list[list[str]], posiciones_barcos: list[list[int]]) -> None: #aca me gustria poner 2 intes, para que devuleva aciertos y fallos pero no se como hacerlo
@@ -49,8 +48,10 @@ def sistema_disparos(tablero: list[list[str]], posiciones_barcos: list[list[int]
             disparosAcertados += 1
             posicionesBarcos.remove(intentoDisparo)
             tablero[intentoDisparo[0]][intentoDisparo[1]] = "golpeado"
+            print("Disparo acertado")
         else :
             disparosFallados += 1
+            print("Disparo fallado")
     return disparosAcertados, disparosFallados
 
 #creacion y configuarcion del juego
