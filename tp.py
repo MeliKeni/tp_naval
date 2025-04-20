@@ -1,6 +1,7 @@
 import random #Es una libreria que voy a utilizar en la generacion de barcos para que sea random, esta libreria nos ayuda a elegir numeros aleatorios
 
 #declaro las variables iniciales
+n:int =0 #tamano tablero4
 disparosAcertadosA:int =0
 disparosFalladosA:int =0
 disparosAcertadosB:int =0
@@ -34,9 +35,10 @@ def asignarBarcos(tablero:list[list[str]], cantidadBarcos:int) -> list[list[int]
         if posicionyfinal > n-1:
             print("Hubo un error, repetir ese barco")
             continue
-        if [posicionx, posiciony] in posicionesBarcos or [posicionx, posicionyfinal] in posicionesBarcos:
-            print("Hubo un error, repetir ese barco")
-            continue
+        for i in range(tamanoBarco-1):
+            if tablero[posicionx][posiciony + i] in posicionesBarcos:
+                print("Hubo un error, repetir ese barco")
+                continue
         for i in range(tamanoBarco):
            barco_i.append([posicionx, posiciony + i])
            tablero[posicionx][posiciony + i] = "barco"
