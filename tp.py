@@ -110,3 +110,5 @@ print("Tablero jugador 2")
 imprimirTablero(tableroB)
 print("la cantidad de disparos acertados por el jugador 2 fueron: ",  disparosAcertadosB)
 print("la cantidad de disparos fallados por el jugador 2  fueron: ",  disparosFalladosB)
+
+#Todo lo visto por fuera de clase fue buscado en la cheatsheet, tanteado o buscado en google
